@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Mobile OpenRS</string>
+    <string name="title_activity_scripting">ScriptingActivity</string>
+    <string name="title_activity_output">OutputActivity</string>
+    <string-array name="script_options">
+        <item>Run</item>
+        <item>Stop all</item>
+        <item>Edit</item>
+        <item>Delete</item>
+    </string-array>
+</resources>

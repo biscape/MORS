@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="6dip" >
+
+    <ImageView
+        android:id="@+id/outputicon"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dip"
+        android:src="@drawable/outputicon" />
+
+
+
+    <TextView
+        android:id="@+id/outputfilename"
+        android:layout_width="fill_parent"
+        android:layout_height="36dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_toRightOf="@id/outputicon"
+        android:gravity="center_vertical"
+        android:text="Example application"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/outputtextview"
+        android:layout_width="fill_parent"
+        android:layout_height="150dip"
+        android:layout_below="@+id/outputfilename"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/outputicon"
+        android:singleLine="false"
+        android:maxLines="9"
+        android:lines="9"
+        android:text="Description"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/outputstatustext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/outputstatusicon"
+        android:layout_below="@+id/outputtextview"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/outputstatusicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@android:drawable/star_off" />
+
+</RelativeLayout>
