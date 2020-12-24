@@ -54,7 +54,7 @@ public class Script {
     }
 
     public String getDescription() {
-        return (!output.isEmpty()?output.get(output.size() - 1).getOutput():"Tap to execute.");
+        return (!output.isEmpty()?output.get(output.size() - 1).getOutput():"Tap to modify, hold to execute.");
     }
 
     private void loadCode(){
@@ -206,6 +206,8 @@ public class Script {
 
 
         void publishProgress(final String progress) {
+//            Log.d("Output","-------------\n" + progress);
+
             outputListener.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -234,8 +236,10 @@ public class Script {
                 StringBuffer buffer = new StringBuffer();
                 try {
                     while ((line = inputReader.readLine()) != null || (line = errorReader.readLine()) != null) {
-                        Thread.sleep(1000);
+                        Thread.sleep(1);
                         buffer.append(line + "\n");
+                        Log.d("Output",line);
+
                         publishProgress(buffer.toString());
                     }
 //                    Log.d("output: ", "FINISHED!!!!");

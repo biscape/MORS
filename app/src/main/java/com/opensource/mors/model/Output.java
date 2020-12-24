@@ -26,18 +26,18 @@ public class Output {
     private String name;
     private Thread executor;
     private Thread saver;
-    private FloatingWidgetService myServiceBinder;
+    private FloatingWidgetService floatingBubbleServiceBinder;
     public ServiceConnection myConnection = new ServiceConnection() {
 
         public void onServiceConnected(ComponentName className, IBinder binder) {
-            myServiceBinder = ((FloatingWidgetService.BubbleBinder) binder).getService();
+            floatingBubbleServiceBinder = ((FloatingWidgetService.BubbleBinder) binder).getService();
             Log.d("ServiceConnection","connected");
-            myServiceBinder.setText("Yuhuu");
+            floatingBubbleServiceBinder.setText("");
         }
 
         public void onServiceDisconnected(ComponentName className) {
             Log.d("ServiceConnection","disconnected");
-            myServiceBinder = null;
+            floatingBubbleServiceBinder = null;
         }
     };
 
@@ -122,7 +122,7 @@ public class Output {
 
     public void addOutput(String text){
         this.output = text;
-        if(myServiceBinder != null){
+        if(floatingBubbleServiceBinder != null){
             String lastLine = text.split("\n")[text.split("\n").length-1];
             executeOutput(lastLine);
         }
@@ -131,7 +131,14 @@ public class Output {
         //care, adding more functions might lead to negative outcomes. This might be dangerous!
         if(text.contains("bubble(")){
             String subtext = text.substring(text.indexOf("bubble(")+("bubble(").length(), text.lastIndexOf(")"));
-            myServiceBinder.setText(subtext);
+            if (subtext.contains(",$")){
+               String[] arguments = subtext.split("[,][$]");
+                floatingBubbleServiceBinder.setText(arguments[0]);
+                floatingBubbleServiceBinder.setColor(arguments[1]);
+            }else{
+                floatingBubbleServiceBinder.setText(subtext);
+            }
+
         }
         if(text.contains("beep()")){
             ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);

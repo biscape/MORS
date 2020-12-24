@@ -3,6 +3,8 @@ package com.opensource.mors;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Binder;
 import android.os.Build;
@@ -10,6 +12,7 @@ import android.os.IBinder;
 import android.os.IInterface;
 import android.os.Parcel;
 import android.os.RemoteException;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -22,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.andremion.counterfab.CounterFab;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.FileDescriptor;
 
@@ -34,6 +38,7 @@ public class FloatingWidgetService extends Service {
 
     private WindowManager mWindowManager;
     private View mOverlayView;
+    private FloatingActionButton mFloatingActionButton;
 //    CounterFab counterFab;
     RelativeLayout counterFab;
     TextView textView;
@@ -47,6 +52,22 @@ public class FloatingWidgetService extends Service {
 
     public void setText(String text){
         textView.setText(text);
+    }
+    public void setColor(String color){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//            textView.tint
+            return;
+        }
+//        Log.d("FloatingWidgetService", color);
+        if (color.equals("green")){
+//            Log.d("FloatingWidgetService", "GREEN!");
+            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(((0xff) << 24 | (0x00) << 16 | (0xff) << 8 | (0x00))));
+        }else if (color.equals("red")){
+//            Log.d("FloatingWidgetService", "RED!");
+            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(((0xff) << 24 | (0xff) << 16 | (0x00) << 8 | (0x00))));
+        }
+
+
     }
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -62,7 +83,7 @@ public class FloatingWidgetService extends Service {
         } else {
             LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_PHONE;
         }
-
+        mFloatingActionButton = mOverlayView.findViewById(R.id.floating_button);
 
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -85,7 +106,6 @@ public class FloatingWidgetService extends Service {
         counterFab = mOverlayView.findViewById(R.id.fabHead);
         textView = mOverlayView.findViewById(R.id.floating_text);
 //        counterFab.setCount(1);
-
         counterFab.setOnTouchListener(new View.OnTouchListener() {
             private int initialX;
             private int initialY;
